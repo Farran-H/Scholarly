@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/rectangle_9"
+    tools:context=".AddProfileDetailspage">
+
+
+    <View
+        android:id="@+id/frame_93"
+        android:layout_width="237dp"
+        android:layout_height="59dp"
+        android:background="@drawable/frame_93"
+        android:elevation="4dp"
+        tools:layout_editor_absoluteX="87dp"
+        tools:layout_editor_absoluteY="210dp" />
+
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="228dp"
+        android:layout_height="50dp"
+        android:elevation="4dp"
+        android:ems="10"
+        android:hint="@string/Name"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="89dp"
+        tools:layout_editor_absoluteY="219dp" />
+
+    <View
+        android:id="@+id/frame_"
+        android:layout_width="237dp"
+        android:layout_height="59dp"
+        android:background="@drawable/frame_93"
+        android:elevation="4dp"
+        tools:layout_editor_absoluteX="87dp"
+        tools:layout_editor_absoluteY="300dp" />
+
+    <EditText
+        android:id="@+id/editCourse"
+        android:layout_width="228dp"
+        android:layout_height="50dp"
+        android:elevation="4dp"
+        android:ems="10"
+        android:hint="@string/course"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="92dp"
+        tools:layout_editor_absoluteY="309dp" />
+
+    <View
+        android:id="@+id/frame_3"
+        android:layout_width="237dp"
+        android:layout_height="59dp"
+        android:background="@drawable/frame_93"
+        android:elevation="4dp"
+
+        tools:layout_editor_absoluteX="87dp"
+        tools:layout_editor_absoluteY="391dp" />
+
+    <EditText
+        android:id="@+id/editTextDate"
+        android:layout_width="228dp"
+        android:layout_height="50dp"
+        android:contentDescription="@string/savedetailsbutton"
+        android:elevation="4dp"
+        android:ems="10"
+        android:hint="@string/date_of_birth"
+        android:inputType="date"
+        android:maxLines="1"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="92dp"
+        tools:layout_editor_absoluteY="400dp" />
+
+    <View
+        android:id="@+id/frame_2"
+        android:layout_width="237dp"
+        android:layout_height="59dp"
+        android:background="@drawable/frame_93"
+        android:elevation="4dp"
+        tools:layout_editor_absoluteX="87dp"
+        tools:layout_editor_absoluteY="483dp" />
+
+    <EditText
+        android:id="@+id/editTextBio"
+        android:layout_width="228dp"
+        android:layout_height="50dp"
+        android:elevation="4dp"
+        android:ems="10"
+        android:hint="@string/bio"
+        android:inputType="text"
+        android:maxLines="1"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="92dp"
+        tools:layout_editor_absoluteY="492dp" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/welcometext"
+        android:textColor="@color/white"
+        tools:layout_editor_absoluteX="96dp"
+        tools:layout_editor_absoluteY="153dp" />
+
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="194dp"
+        android:layout_height="59dp"
+        android:contentDescription="@string/savedetailsbutton"
+        android:text="@string/save_details"
+        tools:layout_editor_absoluteX="109dp"
+        tools:layout_editor_absoluteY="577dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
