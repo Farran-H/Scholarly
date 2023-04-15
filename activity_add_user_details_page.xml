@@ -93,35 +93,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"
         android:layout_marginTop="12dp"
-        android:text="Date of Birth"
+        android:text=""
         android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editUserBio" />
-
-    <TextView
-        android:id="@+id/tvUserDoB"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvDoB" />
-
-    <Button
-        android:id="@+id/btnSelectDoB"
-        android:layout_width="191dp"
-        android:layout_height="45dp"
-        android:layout_marginHorizontal="190dp"
-        android:layout_marginTop="0dp"
-
-        android:text="Select Date"
-        android:textColor="#FFFFFF"
-        android:textSize="16sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/tvUserDoB" />
-
 
 
     <Button
@@ -129,13 +104,22 @@
         android:layout_width="232dp"
         android:layout_height="51dp"
         android:layout_marginHorizontal="80dp"
+        android:layout_marginTop="50dp"
         android:text="Update Profile"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tvUserDoB"
-        android:layout_marginTop="80dp"/>
+        app:layout_constraintTop_toBottomOf="@+id/editUserBio" />
+
+
+    <EditText
+        android:id="@+id/editUserDob"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginHorizontal="30dp"
+        android:inputType="textPersonName"
+        app:layout_constraintEnd_toStartOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     " />
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>
