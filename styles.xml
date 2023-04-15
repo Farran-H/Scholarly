@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base Theme for Home Page -->
+    <style name="homeStyle" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Customisation of Colours for app -->
+        <item name="colorPrimary">@color/colourPrimary</item>
+        <item name="colorSecondary">@color/colourSecondaryPurple</item>
+        <item name="colorSecondaryVariant">@color/colourSecondaryRed</item>
+        <item name="colorAccent">@color/colourAccent</item>
+        <item name="android:textColorPrimary">@color/colourPrimaryText</item>
+    </style>
+    
+    
+</resources>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="16dp"
+    android:background="@color/colourPrimary">
+
+    
+    <com.makeramen.roundedimageview.RoundedImageView
+        android:id="@+id/profileAvatar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="centerCrop"
+        android:src="@drawable/Avatar"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:riv_oval="true"/>
+
+    <!-- Assists with Placing Avatar -->
+
+    <View
+        android:layout_width="1dp"
+        android:layout_height="1dp"
+        android:id="@+id/supportView"
+        app:layout_constraintBottom_toBottomOf="@+id/profileAvatar"
+        app:layout_constraintEnd_toEndOf="@id/profileAvatar"
+        app:layout_constraintStart_toStartOf="@id/profileAvatar"
+        app:layout_constraintTop_toTopOf="@id/profileAvatar"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="Username"
+        android:textColor="@color/colourAccent"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@id/supportView"
+        app:layout_constraintStart_toEndOf="@+id/profileAvatar"/>
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:text="username@usermail.com"
+        android:textColor="@color/colourGrey"
+        android:textSize="12sp"
+        app:layout_constraintTop_toBottomOf="@id/supportView"
+        app:layout_constraintStart_toEndOf="@id/profileAvatar"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
