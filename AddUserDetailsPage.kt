@@ -1,17 +1,20 @@
 package com.example.myapplication
 
+import android.app.DatePickerDialog
 import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
+import android.widget.DatePicker
 import android.widget.Toast
 import com.example.myapplication.databinding.ActivityAddUserDetailsPageBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import java.util.*
 
-class AddUserDetailsPage : AppCompatActivity() {
+class AddUserDetailsPage : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     private lateinit var binding : ActivityAddUserDetailsPageBinding
     private lateinit var auth : FirebaseAuth
@@ -35,7 +38,6 @@ class AddUserDetailsPage : AppCompatActivity() {
                             binding.editfullName.setText(user.fullName)
                             binding.editUserCourse.setText(user.course)
                             binding.editUserBio.setText(user.bio)
-                            binding.editUserDoB.setText(user.dob)
                         }
                     }
                 }
@@ -46,9 +48,9 @@ class AddUserDetailsPage : AppCompatActivity() {
             })
         }
 
-
-
-
+        binding.btnSelectDoB.setOnClickListener {
+            showDatePickerDialog()
+        }
 
         binding.saveBtn.setOnClickListener {
             showProgressBar()
@@ -56,7 +58,7 @@ class AddUserDetailsPage : AppCompatActivity() {
             val fullName = binding.editfullName.text.toString()
             val course = binding.editUserCourse.text.toString()
             val bio = binding.editUserBio.text.toString()
-            val dob = binding.editUserDoB.text.toString()
+            val dob = binding.btnSelectDoB.text.toString()
 
             // Validate form fields
             if (fullName.isEmpty() || course.isEmpty() || bio.isEmpty() || dob.isEmpty()) {
@@ -104,4 +106,38 @@ class AddUserDetailsPage : AppCompatActivity() {
     private fun hideProgressBar() {
         dialog.dismiss()
     }
+
+    private fun showDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+        val currentYear = calendar.get(Calendar.YEAR)
+        val currentMonth = calendar.get(Calendar.MONTH)
+        val currentDay = calendar.get(Calendar.DAY_OF_MONTH)
+
+        // Calculate the maximum year for 17 years ago
+        val maxYear = currentYear - 17
+
+        val datePickerDialog = DatePickerDialog(this, this, currentYear, currentMonth, currentDay)
+
+        // Set max date to 17 years ago from current date
+        datePickerDialog.datePicker.maxDate = getMillisForDate(maxYear, 11, 31)
+
+        // Set min date to January 1, 1951
+        datePickerDialog.datePicker.minDate = getMillisForDate(1951, 0, 1)
+
+        datePickerDialog.show()
+    }
+
+    private fun getMillisForDate(year: Int, month: Int, day: Int): Long {
+        val calendar = Calendar.getInstance()
+        calendar.set(year, month, day)
+        return calendar.timeInMillis
+    }
+
+
+
+    override fun onDateSet(view: DatePicker?, year: Int, month: Int, dayOfMonth: Int) {
+        // Update the text of btnSelectDoB with the selected date
+        binding.btnSelectDoB.text = "$dayOfMonth/${month + 1}/$year"
+    }
+
 }
