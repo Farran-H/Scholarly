@@ -98,30 +98,44 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/editUserBio" />
 
-    <EditText
-        android:id="@+id/editUserDoB"
+    <TextView
+        android:id="@+id/tvUserDoB"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="8dp"
-        android:inputType="datetime|date"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvDoB" />
 
     <Button
+        android:id="@+id/btnSelectDoB"
+        android:layout_width="191dp"
+        android:layout_height="45dp"
+        android:layout_marginHorizontal="190dp"
+        android:layout_marginTop="0dp"
+
+        android:text="Select Date"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvUserDoB" />
+
+
+
+    <Button
         android:id="@+id/saveBtn"
         android:layout_width="232dp"
         android:layout_height="51dp"
         android:layout_marginHorizontal="80dp"
-        android:layout_marginTop="16dp"
         android:text="Update Profile"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editUserDoB" />
+        app:layout_constraintTop_toBottomOf="@+id/tvUserDoB"
+        android:layout_marginTop="80dp"/>
+    " />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
