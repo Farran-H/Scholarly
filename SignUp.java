@@ -39,6 +39,8 @@ public class SignUp extends AppCompatActivity {
     public void onStart() {
         super.onStart();
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        // If the user is logged in, go to the home page
         if(currentUser != null){
             Intent intent = new Intent(getApplicationContext(), home_page.class);
             startActivity(intent);
@@ -62,7 +64,7 @@ public class SignUp extends AppCompatActivity {
         progressBar.setVisibility(View.GONE);
 
 
-
+        // Already a member? link
         textView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +75,7 @@ public class SignUp extends AppCompatActivity {
         });
 
 
-
+        //On click listener for the register button
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,26 +84,26 @@ public class SignUp extends AppCompatActivity {
                 email = String.valueOf(editTextEmail.getText());
                 password = String.valueOf(editTextPassword.getText());
                 cpassword = String.valueOf(editTextConfirmPassword.getText());
-                //name box code to database
+
 
 
                 // Validate email
-                if (TextUtils.isEmpty(email)) {
+                if (TextUtils.isEmpty(email)) { // Email cannot be empty
                     Toast.makeText(SignUp.this, "Please enter an email address", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                     return;
-                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                } else if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) { // Email must have @ and .
                     Toast.makeText(SignUp.this, "Please enter a valid email address", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                     return;
                 }
 
-                if (TextUtils.isEmpty(password)) {
+                if (TextUtils.isEmpty(password)) { // password must be filled out
                     Toast.makeText(SignUp.this, "Enter password", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                     return;
                 }
-                if (!password.equals(cpassword)) {
+                if (!password.equals(cpassword)) { // passwords must match
                     Toast.makeText(SignUp.this, "Passwords do not match", Toast.LENGTH_SHORT).show();
                     progressBar.setVisibility(View.GONE);
                     return;
@@ -119,7 +121,7 @@ public class SignUp extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
+                                    // Sign in success, go to next page
                                     Toast.makeText(SignUp.this, "Account Created",
                                             Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.GONE);
@@ -129,7 +131,7 @@ public class SignUp extends AppCompatActivity {
 
 
                                 } else {
-                                    // If sign in fails, display a message to the user.
+                                    // If sign up fails, the email must already be taken
                                     Toast.makeText(SignUp.this, "Email taken.",
                                             Toast.LENGTH_SHORT).show();
                                     progressBar.setVisibility(View.GONE);
