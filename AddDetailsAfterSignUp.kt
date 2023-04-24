@@ -14,6 +14,7 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
 import java.util.*
 
+//the class extends AppCompatActivity class and Implements DatePickterDialog.OnSetListener
 class AddDetailsAfterSignUp : AppCompatActivity(), DatePickerDialog.OnDateSetListener {
 
     private lateinit var binding : ActivityAddDetailsAfterSignUpBinding
@@ -25,21 +26,28 @@ class AddDetailsAfterSignUp : AppCompatActivity(), DatePickerDialog.OnDateSetLis
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        // Inflates the layout of the page and set the content view to the inflated view
         binding = ActivityAddDetailsAfterSignUpBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         auth = FirebaseAuth.getInstance()
+
+        //Gets current User's ID and sets databaseReference to point to the Users Node in our firebase database
         val uid = auth.currentUser?.uid
         databaseReference = FirebaseDatabase.getInstance("https://scholarly-login-default-rtdb.europe-west1.firebasedatabase.app/").getReference("Users")
 
+        // Gets users details from firebase database)
         if (uid != null) {
             databaseReference.child(uid).addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     if (snapshot.exists()) {
                         val user = snapshot.getValue(User::class.java)
                         if (user != null) {
+                            //Populates the edittexts with the user's stored data (null in this case, but helpful in the edit class)
                             binding.editfullName.setText(user.fullName)
                             binding.editUserCourse.setText(user.course)
-                            binding.editUserBio.setText(user.bio)
+                            binding.editUserstudentID.setText(user.studentID)
 
                         }
                     }
@@ -51,31 +59,38 @@ class AddDetailsAfterSignUp : AppCompatActivity(), DatePickerDialog.OnDateSetLis
             })
         }
 
+        // Show calendar when button is clicked
         binding.btnSelectDoB.setOnClickListener {
             showDatePickerDialog()
         }
 
-
+        // Save details button click listener
         binding.saveBtn.setOnClickListener {
             showProgressBar()
 
+            //puts values into strings
             val fullName = binding.editfullName.text.toString()
             val course = binding.editUserCourse.text.toString()
-            val bio = binding.editUserBio.text.toString()
+            val studentID = binding.editUserstudentID.text.toString()
 
-            // Check if date of birth is empty
+            // Check if date of birth is empty, does not let user continue if not
             if (selectedDate.isEmpty()) {
                 hideProgressBar()
                 Toast.makeText(this@AddDetailsAfterSignUp, "Please select a date of birth", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Use the stored selected date if not empty, otherwise use the current value of btnSelectDoB
+            // Validate course format, does not let user continue if not
+            if (!isValidCourseFormat(course)) {
+                hideProgressBar()
+                Toast.makeText(this@AddDetailsAfterSignUp, "Course code invalid", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
 
+            // Use the stored selected date if not empty, otherwise use the current value of btnSelectDoB
             val dob = if (selectedDate.isNotEmpty()) {
                 selectedDate
             } else {
-                // Check if dob field was empty before editing, if so, don't update it
                 if (binding.btnSelectDoB.text.toString() == getString(R.string.btn_select_dob)) {
                     ""
                 } else {
@@ -84,25 +99,36 @@ class AddDetailsAfterSignUp : AppCompatActivity(), DatePickerDialog.OnDateSetLis
             }
 
             // Validate form fields
-            if (fullName.isEmpty() || course.isEmpty() || bio.isEmpty() || dob.isEmpty()) {
+            if (fullName.isEmpty() || course.isEmpty() || studentID.isEmpty() || dob.isEmpty()) {
                 hideProgressBar()
                 Toast.makeText(this@AddDetailsAfterSignUp, "All fields are required", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            // Log the values of fullName, course, and bio variables
+            //Student ID has to be 8 digits
+            if (studentID.length != 8) {
+                hideProgressBar()
+                Toast.makeText(this@AddDetailsAfterSignUp, "Student Number must be 8 digits", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            // Log the values of fullName, course, and studentID variables to Logcat for debugging
             Log.d("TAG", "fullName: $fullName")
             Log.d("TAG", "course: $course")
-            Log.d("TAG", "bio: $bio")
+            Log.d("TAG", "studentID: $studentID")
 
-            val user = User(fullName, course, bio, dob)
+            // Creates new User object with the user's data
+            val user = User(fullName, course, studentID, dob)
+
+            // Saves the users data to firebase
             if (uid != null) {
                 databaseReference.child(uid).setValue(user).addOnCompleteListener { task ->
                     if(task.isSuccessful) {
                         hideProgressBar()
                         Toast.makeText(this@AddDetailsAfterSignUp, "Profile successfully updated", Toast.LENGTH_SHORT).show()
-                        val intent = Intent(this, ScreenAfterLogin::class.java)
+                        val intent = Intent(this, home_page::class.java)
                         startActivity(intent)
+                        finish()
                     } else {
                         hideProgressBar()
                         Toast.makeText(this@AddDetailsAfterSignUp, "Failed to update profile", Toast.LENGTH_SHORT).show()
@@ -119,6 +145,7 @@ class AddDetailsAfterSignUp : AppCompatActivity(), DatePickerDialog.OnDateSetLis
 
     }
 
+    // Shows loading animation
     private fun showProgressBar(){
         dialog = Dialog(this@AddDetailsAfterSignUp)
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
@@ -126,8 +153,15 @@ class AddDetailsAfterSignUp : AppCompatActivity(), DatePickerDialog.OnDateSetLis
         dialog.show()
     }
 
+    // Hides loading animation
     private fun hideProgressBar() {
         dialog.dismiss()
+    }
+
+    // Function to validate the course format
+    fun isValidCourseFormat(course: String): Boolean {
+        val regex = "[A-Za-z]{2}[0-9]{3}".toRegex()
+        return regex.matches(course)
     }
 
     private fun showDatePickerDialog() {
